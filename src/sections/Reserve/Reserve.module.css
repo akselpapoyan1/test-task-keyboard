@@ -1,0 +1,129 @@
+.section {
+  padding-block: clamp(5rem, 10vw, 8rem);
+  border-top: 1px solid var(--line);
+}
+
+.grid {
+  display: grid;
+  gap: 2.5rem;
+  align-items: start;
+}
+
+.summary {
+  display: grid;
+  gap: 0.2rem;
+  max-width: 28rem;
+  padding: 1.25rem 1.4rem;
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+
+.summaryLabel {
+  font: 500 0.6875rem / 1 var(--font-mono);
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.summaryTitle {
+  margin-top: 0.5rem;
+  font: 760 1.35rem / 1.15 var(--font-display);
+  font-stretch: 112%;
+  letter-spacing: -0.02em;
+}
+
+.summaryDetail {
+  color: var(--muted);
+}
+
+.summaryPrice {
+  margin-top: 0.6rem;
+  font: 800 1.8rem / 1 var(--font-display);
+  font-stretch: 112%;
+}
+
+.change {
+  justify-self: start;
+  margin-top: 0.6rem;
+  font-weight: 600;
+  text-decoration-thickness: 2px;
+  text-decoration-color: var(--accent);
+}
+
+.form {
+  display: grid;
+  gap: 1.4rem;
+  max-width: 32rem;
+  width: 100%;
+}
+
+.field {
+  display: grid;
+  align-content: start;
+  gap: 0.5rem;
+}
+
+.field label {
+  font: 500 0.75rem / 1 var(--font-mono);
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.field input {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--line);
+  border-radius: 0.6rem;
+  background: var(--raised);
+  font-size: 1rem;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+
+.field input:hover {
+  border-color: var(--muted);
+}
+
+.field input:focus-visible {
+  outline: none;
+  border-color: var(--ink);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 55%, transparent);
+}
+
+.field[data-invalid='true'] input {
+  border-color: #c4282d;
+}
+
+.error {
+  font-size: 0.875rem;
+  color: #b3261e;
+}
+
+:root[data-theme='dark'] .error {
+  color: #ff8a8d;
+}
+
+:root[data-theme='dark'] .field[data-invalid='true'] input {
+  border-color: #ff8a8d;
+}
+
+.submit {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 1.5rem;
+  margin-top: 0.4rem;
+}
+
+.submit p {
+  font: 400 0.75rem / 1.4 var(--font-mono);
+  color: var(--muted);
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+  }
+}

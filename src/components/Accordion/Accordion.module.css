@@ -1,0 +1,92 @@
+.item {
+  border-top: 1px solid var(--line);
+}
+
+.item:last-child {
+  border-bottom: 1px solid var(--line);
+}
+
+.question {
+  font-size: clamp(1.25rem, 1rem + 0.9vw, 1.65rem);
+  letter-spacing: -0.01em;
+}
+
+.question button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
+  width: 100%;
+  padding: 1.5rem 0;
+  text-align: left;
+  font: inherit;
+  letter-spacing: inherit;
+}
+
+.question button:hover {
+  color: var(--accent);
+}
+
+/* a plus that turns into a cross */
+.icon {
+  position: relative;
+  flex-shrink: 0;
+  width: 1.1rem;
+  height: 1.1rem;
+  transition: rotate 0.45s var(--ease-out);
+}
+
+.icon::before,
+.icon::after {
+  content: '';
+  position: absolute;
+  inset: 50% 0 auto;
+  height: 1.5px;
+  margin-top: -0.75px;
+  background: currentColor;
+}
+
+.icon::after {
+  rotate: 90deg;
+}
+
+.item[data-open='true'] .icon {
+  rotate: 135deg;
+}
+
+/* animating to height: auto with grid rows, no JS needed.
+   visibility keeps the closed answer out of the tab order and the accessibility tree. */
+.panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  visibility: hidden;
+  transition:
+    grid-template-rows 0.45s var(--ease-out),
+    visibility 0s 0.45s;
+}
+
+.item[data-open='true'] .panel {
+  grid-template-rows: 1fr;
+  visibility: visible;
+  transition:
+    grid-template-rows 0.45s var(--ease-out),
+    visibility 0s;
+}
+
+.inner {
+  overflow: hidden;
+}
+
+.answer {
+  max-width: 40rem;
+  padding-bottom: 1.6rem;
+  color: var(--muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panel,
+  .item[data-open='true'] .panel,
+  .icon {
+    transition: none;
+  }
+}

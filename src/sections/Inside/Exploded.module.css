@@ -1,0 +1,264 @@
+/* Everything here is sized in --su, one drawing unit (a tenth of a key) in pixels.
+   It follows the width of the scene, and the height of the screen so a pinned board fits.
+   The padding on top is the room the parts need when they float up. */
+.orbit {
+  --su: calc(min(80cqi, 40rem, 100svh - 10rem) / 166);
+  padding-top: calc(var(--su) * 100);
+  transform-style: preserve-3d;
+}
+
+/* GSAP turns the board through --tilt and --spin. Its own rotation props would tip the
+   board back first and then spin it flat on the screen, the wrong way round. */
+.stack {
+  --tilt: 56;
+  --spin: -32;
+  position: relative;
+  width: calc(var(--su) * 166);
+  margin-inline: auto;
+  aspect-ratio: 166 / 66;
+  transform-style: preserve-3d;
+  transform: rotateX(calc(var(--tilt) * 1deg)) rotateZ(calc(var(--spin) * 1deg));
+}
+
+/* --z is set on each element that moves, never inherited, or planes would add up */
+.layer,
+.plane,
+.block {
+  position: absolute;
+  transform: translateZ(calc(var(--su) * var(--z)));
+}
+
+.layer,
+.plane {
+  --z: 0;
+  inset: 0;
+}
+
+/* on a phone the board takes more of the width, or the parts get too small to read */
+@container (max-width: 30rem) {
+  .orbit {
+    --su: calc(90cqi / 166);
+  }
+}
+
+.layer,
+.block {
+  transform-style: preserve-3d;
+}
+
+.plane {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.block {
+  left: calc(var(--su) * var(--x));
+  top: calc(var(--su) * var(--y));
+  width: calc(var(--su) * var(--w));
+  height: calc(var(--su) * var(--h));
+}
+
+/* The two sides you can see from this angle, hinged down from the front and left edges.
+   Light comes from the back left, so the left side is lighter than the front. */
+.front,
+.left {
+  position: absolute;
+}
+
+.front {
+  left: 0;
+  top: 100%;
+  width: 100%;
+  height: calc(var(--su) * var(--t));
+  transform-origin: top;
+  transform: rotateX(-90deg);
+  background: linear-gradient(transparent 30%, rgb(0 0 0 / 0.16))
+    color-mix(in oklab, var(--face) 62%, #000);
+}
+
+.left {
+  top: 0;
+  right: 100%;
+  width: calc(var(--su) * var(--t));
+  height: 100%;
+  transform-origin: right;
+  transform: rotateY(-90deg);
+  background: linear-gradient(to left, transparent 30%, rgb(0 0 0 / 0.16))
+    color-mix(in oklab, var(--face) 80%, #000);
+}
+
+/* case */
+.shadow {
+  position: absolute;
+  inset: 0;
+  border-radius: calc(var(--su) * 2);
+  box-shadow: 0 calc(var(--su) * 4) calc(var(--su) * 12) calc(var(--su) * 2) rgb(0 0 0 / 0.32);
+  transform: translateZ(-1px);
+}
+
+.floor {
+  position: absolute;
+  inset: 0;
+  border-radius: calc(var(--su) * 0.6);
+  background: color-mix(in oklab, var(--case) 70%, #000);
+  box-shadow: inset 0 0 calc(var(--su) * 6) rgb(0 0 0 / 0.45);
+}
+
+.shell {
+  --face: var(--case);
+}
+
+.shell path {
+  fill: var(--case);
+  stroke: rgb(255 255 255 / 0.3);
+  stroke-width: 0.25;
+}
+
+/* a bright edge where the rim meets the sides, like a chamfer */
+.shell > .front {
+  box-shadow: inset 0 1px rgb(255 255 255 / 0.2);
+}
+
+.shell > .left {
+  box-shadow: inset -1px 0 rgb(255 255 255 / 0.2);
+}
+
+.wall {
+  --face: color-mix(in oklab, var(--case) 85%, #000);
+}
+
+/* darker towards the floor */
+.wall > .front {
+  background-image: linear-gradient(rgb(0 0 0 / 0.05), rgb(0 0 0 / 0.3));
+}
+
+.wall > .left {
+  background-image: linear-gradient(to left, rgb(0 0 0 / 0.05), rgb(0 0 0 / 0.3));
+}
+
+/* PCB */
+.pcb {
+  --face: #1b3127;
+}
+
+.board {
+  fill: var(--face);
+}
+
+.trace {
+  fill: none;
+  stroke: #2a4a3a;
+  stroke-width: 0.35;
+}
+
+.hole {
+  fill: #0a120d;
+}
+
+.pin {
+  fill: #c9a227;
+}
+
+.chip {
+  --face: #17181b;
+  border-radius: 1px;
+  background: var(--face);
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.1);
+}
+
+.usb {
+  --face: #a9adb2;
+  background: linear-gradient(90deg, #9ea3a8, #dfe2e4 45%, #8b9095);
+}
+
+/* gaskets */
+.foam {
+  --face: #6b6f74;
+  border-radius: 1px;
+  background: var(--face);
+}
+
+/* plate */
+.plate {
+  --face: #2e3136;
+}
+
+.plate path {
+  fill: var(--face);
+  stroke: rgb(255 255 255 / 0.09);
+  stroke-width: 0.25;
+}
+
+/* switches */
+.housingBase {
+  fill: color-mix(in oklab, #34373c var(--shade), #000);
+}
+
+.housingTop {
+  fill: color-mix(in oklab, #3b3f45 var(--shade), #000);
+}
+
+/* the stem colour follows the switch picked in the configurator */
+.stems {
+  fill: none;
+  stroke: color-mix(in oklab, var(--stem) var(--shade), #000);
+  stroke-width: 1.1;
+}
+
+/* keycaps: each slice of skirt a shade lighter going up, then the top colour */
+.cap[data-kind='alpha'] {
+  --side: var(--alpha-side);
+  --top: var(--alpha-top);
+}
+
+.cap[data-kind='mod'] {
+  --side: var(--mod-side);
+  --top: var(--mod-top);
+}
+
+.cap[data-kind='accent'] {
+  --side: var(--accent-side);
+  --top: var(--accent-top);
+}
+
+.cap {
+  fill: color-mix(in oklab, var(--side) var(--shade), #000);
+  transition: fill 0.4s;
+}
+
+.capTop .cap {
+  fill: var(--top);
+}
+
+.lip {
+  fill: rgb(255 255 255 / 0.3);
+}
+
+/* The numbers sit off the left end of each part and stand upright whatever the board
+   is doing, by undoing the turn of the stack. */
+.tag {
+  position: absolute;
+  top: 50%;
+  right: calc(100% + 0.6rem);
+  display: grid;
+  place-items: center;
+  width: 1.5rem;
+  height: 1.4rem;
+  border-radius: 0.3rem;
+  background: var(--ink);
+  box-shadow: 0 0 0 2px var(--bg);
+  color: var(--bg);
+  font: 600 0.6875rem / 1 var(--font-mono);
+  translate: 0 -50%;
+  transform: rotateZ(calc(var(--spin) * -1deg)) rotateX(calc(var(--tilt) * -1deg));
+}
+
+@container (max-width: 30rem) {
+  .tag {
+    width: 1.2rem;
+    height: 1.1rem;
+    border-radius: 0.25rem;
+    font-size: 0.625rem;
+  }
+}

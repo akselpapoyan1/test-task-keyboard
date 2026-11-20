@@ -1,0 +1,160 @@
+.header {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 50;
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  height: var(--header-h);
+  padding-inline: var(--gutter);
+  transition:
+    background-color 0.4s,
+    box-shadow 0.4s;
+}
+
+.header[data-scrolled='true'] .bar {
+  background: color-mix(in srgb, var(--bg) 84%, transparent);
+  box-shadow: 0 1px 0 var(--line);
+  backdrop-filter: blur(12px);
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font: 800 1.45rem / 1 var(--font-display);
+  font-stretch: 125%;
+  letter-spacing: -0.04em;
+  text-decoration: none;
+}
+
+/* the Tab arrow, on a tiny accent keycap */
+.mark {
+  display: inline-grid;
+  place-items: center;
+  width: 1.7rem;
+  height: 1.6rem;
+  border-radius: 0.35rem;
+  background: var(--accent);
+  color: var(--on-accent);
+  font-size: 1rem;
+  box-shadow: inset 0 -0.18rem 0 rgb(0 0 0 / 0.18);
+}
+
+.nav {
+  display: none;
+  margin-left: 1.5rem;
+}
+
+.nav ul {
+  display: flex;
+  gap: 1.6rem;
+}
+
+.nav a {
+  font-size: 0.9375rem;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.nav a:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-decoration-color: var(--accent);
+  text-underline-offset: 0.4em;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: auto;
+}
+
+.cta {
+  display: none;
+  margin-left: 0.5rem;
+  padding: 0.7rem 1.05rem 0.85rem;
+  border-radius: 0.5rem;
+  background: var(--accent);
+  color: var(--on-accent);
+  font: 700 0.875rem / 1 var(--font-body);
+  font-stretch: 112%;
+  text-decoration: none;
+  box-shadow: inset 0 -0.22rem 0 rgb(0 0 0 / 0.18);
+  transition: transform 0.12s var(--spring);
+}
+
+.cta:active {
+  transform: translateY(0.12rem);
+}
+
+.menuButton {
+  height: 2.6rem;
+  padding: 0 0.8rem;
+  border-radius: 0.45rem;
+  box-shadow: inset 0 0 0 1px var(--line);
+  font: 500 0.6875rem / 1 var(--font-mono);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.panel {
+  position: fixed;
+  inset: var(--header-h) 0 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.5rem var(--gutter) 2.5rem;
+  background: var(--bg);
+  overflow-y: auto;
+}
+
+.panel[hidden] {
+  display: none;
+}
+
+.panel li {
+  border-bottom: 1px solid var(--line);
+}
+
+.panel a {
+  display: block;
+  padding: 0.85rem 0;
+  font: 760 clamp(1.9rem, 8vw, 2.8rem) / 1.1 var(--font-display);
+  font-stretch: 118%;
+  letter-spacing: -0.035em;
+  text-decoration: none;
+}
+
+.panelNote {
+  margin-top: 2rem;
+  font: 500 0.75rem / 1.6 var(--font-mono);
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+@media (min-width: 1100px) {
+  .nav,
+  .cta {
+    display: block;
+  }
+
+  .menuButton,
+  .panel {
+    display: none;
+  }
+}
+
+@media (max-width: 420px) {
+  .logo {
+    font-size: 1.2rem;
+  }
+
+  .actions {
+    gap: 0.35rem;
+  }
+}

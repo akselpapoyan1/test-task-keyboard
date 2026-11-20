@@ -1,0 +1,76 @@
+.section {
+  padding-block: clamp(5rem, 10vw, 7rem);
+  overflow-x: clip;
+}
+
+.grid {
+  display: grid;
+  gap: 3rem;
+  align-items: center;
+}
+
+.list {
+  display: grid;
+  gap: 0.2rem;
+  counter-reset: part;
+}
+
+/* --on goes 0 to 1 as that layer comes apart. Colour changes, not opacity,
+   so the text stays readable at every step. */
+.item {
+  --on: 1;
+  --mix: calc(var(--on) * 100%);
+  display: grid;
+  grid-template-columns: 2rem 1fr;
+  gap: 0.9rem;
+  padding: 0.75rem 0;
+  border-top: 1px solid var(--line);
+}
+
+.number {
+  display: grid;
+  place-items: center;
+  width: 1.7rem;
+  height: 1.6rem;
+  border-radius: 0.35rem;
+  background: color-mix(in oklab, var(--ink) var(--mix), transparent);
+  box-shadow: inset 0 0 0 1.5px color-mix(in oklab, var(--ink) var(--mix), var(--muted));
+  color: color-mix(in oklab, var(--bg) var(--mix), var(--muted));
+  font: 600 0.75rem / 1 var(--font-mono);
+}
+
+.item h3 {
+  font-size: 1.15rem;
+  letter-spacing: -0.02em;
+  color: color-mix(in oklab, var(--ink) var(--mix), var(--muted));
+}
+
+.item p {
+  margin-top: 0.2rem;
+  font-size: 0.9375rem;
+  color: var(--muted);
+}
+
+/* the size container the drawing measures itself against */
+.scene {
+  container-type: inline-size;
+  perspective: 1800px;
+  padding-block: 1rem 2.5rem;
+}
+
+@media (min-width: 1024px) {
+  .section {
+    padding: 0;
+  }
+
+  .pin {
+    display: flex;
+    align-items: center;
+    min-height: 100svh;
+    padding-block: calc(var(--header-h) + 1rem) 2rem;
+  }
+
+  .grid {
+    grid-template-columns: 0.8fr 1.2fr;
+  }
+}

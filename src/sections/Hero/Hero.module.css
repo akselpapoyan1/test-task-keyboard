@@ -1,0 +1,156 @@
+.hero {
+  padding-block: calc(var(--header-h) + clamp(2rem, 5vw, 4rem)) clamp(3rem, 7vw, 6rem);
+  overflow-x: clip;
+}
+
+.intro {
+  display: grid;
+  gap: 2rem;
+  align-items: end;
+}
+
+.kicker {
+  margin-bottom: 1.2rem;
+  font: 500 0.75rem / 1 var(--font-mono);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.title {
+  font-size: clamp(2.9rem, 1.2rem + 6.4vw, 7.2rem);
+  font-weight: 800;
+  line-height: 0.93;
+}
+
+.lead {
+  max-width: 30rem;
+  font-size: clamp(1.05rem, 0.98rem + 0.3vw, 1.2rem);
+  color: var(--muted);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 1.5rem;
+  margin-top: 1.8rem;
+}
+
+.stage {
+  max-width: 64rem;
+  margin: clamp(2.5rem, 6vw, 4.5rem) auto 0;
+}
+
+/* a little OLED strip above the keyboard */
+.console {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  max-width: 34rem;
+  margin: 0 auto 1.8rem;
+  padding: 0.55rem 0.6rem 0.55rem 1rem;
+  border-radius: 0.7rem;
+  background: #0b0c0d;
+  box-shadow:
+    inset 0 0 0 1px rgb(255 255 255 / 0.06),
+    inset 0 0.4rem 1rem rgb(0 0 0 / 0.6),
+    var(--shadow);
+}
+
+.prompt {
+  font: 500 1rem / 1 var(--font-mono);
+  color: var(--accent);
+}
+
+.screen {
+  flex: 1;
+  min-width: 0;
+  padding: 0.3rem 0;
+  border: 0;
+  background: none;
+  font: 400 1rem / 1.4 var(--font-mono);
+  color: var(--accent);
+  caret-color: var(--accent);
+  text-shadow: 0 0 0.6rem color-mix(in oklab, var(--accent) 60%, transparent);
+}
+
+.screen::placeholder {
+  color: color-mix(in oklab, var(--accent) 45%, #0b0c0d);
+  text-shadow: none;
+}
+
+.screen:focus {
+  outline: none;
+}
+
+.console:focus-within {
+  box-shadow:
+    inset 0 0 0 1px color-mix(in oklab, var(--accent) 60%, transparent),
+    inset 0 0.4rem 1rem rgb(0 0 0 / 0.6),
+    var(--shadow);
+}
+
+.sound {
+  flex-shrink: 0;
+  padding: 0.5rem 0.7rem;
+  border-radius: 0.4rem;
+  background: rgb(255 255 255 / 0.08);
+  color: #e6e8e9;
+  font: 500 0.6875rem / 1 var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.sound:hover {
+  background: rgb(255 255 255 / 0.14);
+}
+
+.desk {
+  perspective: 1600px;
+  perspective-origin: 50% 0%;
+}
+
+.tilt {
+  transform: rotateX(18deg);
+  transform-origin: 50% 100%;
+}
+
+/* the keyboard's shadow on the desk */
+.desk::after {
+  content: '';
+  display: block;
+  height: 2.5rem;
+  margin: -1.2rem 6% 0;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgb(0 0 0 / 0.35), transparent);
+  filter: blur(6px);
+}
+
+:root[data-theme='dark'] .desk::after {
+  background: radial-gradient(
+    closest-side,
+    color-mix(in oklab, var(--accent) 40%, transparent),
+    transparent
+  );
+}
+
+.hint {
+  margin-top: 1rem;
+  text-align: center;
+  font: 500 0.75rem / 1.4 var(--font-mono);
+  color: var(--muted);
+}
+
+@media (min-width: 900px) {
+  .intro {
+    grid-template-columns: 1.35fr 0.65fr;
+    gap: 3rem;
+  }
+}
+
+@media (max-width: 560px) {
+  .sound {
+    display: none;
+  }
+}

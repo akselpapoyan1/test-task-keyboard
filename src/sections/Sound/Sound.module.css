@@ -1,0 +1,197 @@
+.section {
+  padding-block: clamp(5rem, 10vw, 8rem);
+}
+
+.grid {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  height: 100%;
+  padding: 1.5rem;
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: inset 0 0 0 1px var(--line);
+  transition: box-shadow 0.3s;
+}
+
+.card[data-chosen='true'] {
+  box-shadow:
+    inset 0 0 0 2px var(--ink),
+    var(--shadow);
+}
+
+.head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.head h3 {
+  font-size: 2rem;
+}
+
+.type {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font: 500 0.75rem / 1 var(--font-mono);
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* the colour of the switch stem, the way switch makers tell them apart */
+.stem {
+  width: 0.7rem;
+  height: 0.7rem;
+  background:
+    linear-gradient(var(--stem), var(--stem)) center / 100% 34% no-repeat,
+    linear-gradient(var(--stem), var(--stem)) center / 34% 100% no-repeat;
+}
+
+.text {
+  color: var(--muted);
+  min-height: 4.8em;
+}
+
+.test {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 1rem;
+}
+
+.tester {
+  position: relative;
+  width: 5.2rem;
+  height: 5.2rem;
+  padding: 0.25rem;
+  border-radius: 0.9rem;
+  background: var(--alpha-side);
+  box-shadow:
+    0 0.45rem 0.5rem -0.1rem rgb(0 0 0 / 0.35),
+    inset 0 -0.25rem 0 rgb(0 0 0 / 0.14);
+  touch-action: none;
+  transition:
+    transform 0.16s var(--spring),
+    box-shadow 0.16s var(--spring);
+}
+
+.testerCap {
+  display: grid;
+  place-items: end start;
+  height: 84%;
+  padding: 0.5rem 0.6rem;
+  border-radius: 0.7rem;
+  background: linear-gradient(170deg, rgb(255 255 255 / 0.35), transparent 45%), var(--alpha-top);
+  font: 500 0.6875rem / 1 var(--font-mono);
+  text-transform: uppercase;
+  color: var(--alpha-legend);
+}
+
+.card[data-pressed='true'] .tester {
+  transform: translateY(0.3rem);
+  box-shadow:
+    0 0.1rem 0.15rem rgb(0 0 0 / 0.35),
+    inset 0 -0.1rem 0 rgb(0 0 0 / 0.14);
+  transition-duration: 0.05s;
+}
+
+.chart {
+  min-width: 0;
+}
+
+.chart svg {
+  width: 100%;
+  overflow: visible;
+}
+
+.chart figcaption {
+  font: 400 0.625rem / 1.3 var(--font-mono);
+  color: var(--muted);
+}
+
+.rule {
+  stroke: var(--line);
+  stroke-width: 1;
+}
+
+.tick {
+  font: 400 8px var(--font-mono);
+  fill: var(--muted);
+}
+
+.actuation {
+  stroke: var(--ink);
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+  opacity: 0.5;
+}
+
+.curve {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 2.2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.dot {
+  fill: var(--accent);
+  stroke: var(--ink);
+  stroke-width: 1.5;
+}
+
+.specs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+}
+
+.specs dt {
+  font: 400 0.6875rem / 1 var(--font-mono);
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.specs dd {
+  margin: 0.25rem 0 0;
+  font-weight: 600;
+}
+
+.choose {
+  margin-top: auto;
+  padding: 0.8rem 1rem;
+  border-radius: 0.55rem;
+  box-shadow: inset 0 0 0 1px var(--line);
+  font-weight: 600;
+  text-align: left;
+  transition:
+    background-color 0.2s,
+    box-shadow 0.2s;
+}
+
+.choose:hover {
+  box-shadow: inset 0 0 0 1px var(--ink);
+}
+
+.choose[aria-pressed='true'] {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+.choose[aria-pressed='true']::after {
+  content: '  ✓';
+}
+
+@media (min-width: 960px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
